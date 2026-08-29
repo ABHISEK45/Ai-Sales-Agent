@@ -43,7 +43,10 @@ def chat(request: ChatRequest):
 
     session_manager.save(request.session_id, session)
 
-    analytics = generate_analytics(session.lead)
+    analytics = {}
+
+    if session.lead.conversation_ended:
+        analytics = generate_analytics(session.lead)
 
     return ChatResponse(
         response=response,
