@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from backend.agent import NorthstarAgent, SessionManager
 from backend.models import ChatRequest, ChatResponse
+from backend.analytics import generate_analytics
 
 
 app = FastAPI(
@@ -42,7 +43,10 @@ def chat(request: ChatRequest):
 
     session_manager.save(request.session_id, session)
 
+    analytics = generate_analytics(session.lead)
+
     return ChatResponse(
         response=response,
         lead_state=session.lead,
+        analytics=analytics,
     )

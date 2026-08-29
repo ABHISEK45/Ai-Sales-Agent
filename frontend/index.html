@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    />
+
+    <title>Northstar One | AI Sales Assistant</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <!-- ================= HEADER ================= -->
+    <header class="topbar">
+
+        <div class="brand">
+            <div class="brand-mark">
+                N
+            </div>
+
+            <div>
+                <div class="brand-name">NORTHSTAR ONE</div>
+                <div class="brand-location">
+                    Sector 79 · Gurugram
+                </div>
+            </div>
+        </div>
+
+        <div class="assistant-status">
+            <span class="status-dot"></span>
+
+            <div>
+                <div class="status-title">
+                    AI Sales Assistant
+                </div>
+
+                <div class="status-subtitle">
+                    Online · Ready to help
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+
+    <!-- ================= MAIN ================= -->
+    <main class="main-layout">
+
+        <!-- ================= CHAT ================= -->
+        <section class="chat-panel">
+
+            <div class="chat-header">
+
+                <div>
+                    <span class="eyebrow">WELCOME</span>
+
+                    <h1>
+                        Find your next
+                        <span>home.</span>
+                    </h1>
+
+                    <p>
+                        Ask me about apartments, pricing,
+                        availability, or schedule a site visit.
+                    </p>
+                </div>
+
+                <div class="property-badge">
+                    <span>3 BHK</span>
+                    <strong>₹1.75 Cr+</strong>
+                </div>
+
+            </div>
+
+
+            <!-- Messages -->
+            <div
+                id="chatMessages"
+                class="chat-messages"
+            >
+
+                <div class="message assistant-message">
+                    <div class="avatar">
+                        N
+                    </div>
+
+                    <div class="message-content">
+                        <div class="message-name">
+                            Northstar Assistant
+                        </div>
+
+                        <div class="message-bubble">
+                            Hello! Welcome to Northstar One.
+                            I can help you explore our apartments,
+                            pricing, and site visits. What are you
+                            looking for?
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- Typing indicator -->
+            <div
+                id="typingIndicator"
+                class="typing-indicator hidden"
+            >
+                <div class="avatar small">N</div>
+
+                <div class="typing-bubble">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+
+            <!-- Input -->
+            <div class="composer">
+
+                <textarea
+                    id="messageInput"
+                    rows="1"
+                    placeholder="Ask about Northstar One..."
+                    autocomplete="off"
+                ></textarea>
+
+                <button
+                    id="sendButton"
+                    class="send-button"
+                    aria-label="Send message"
+                >
+                    <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M22 2L11 13"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+
+                        <path
+                            d="M22 2L15 22L11 13L2 9L22 2Z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                    </svg>
+                </button>
+
+            </div>
+
+            <div class="composer-hint">
+                AI assistant · Powered by Gemini
+            </div>
+
+        </section>
+
+
+        <!-- ================= LEAD PANEL ================= -->
+        <aside class="lead-panel">
+
+            <div class="lead-panel-header">
+
+                <div>
+                    <span class="eyebrow">CUSTOMER PROFILE</span>
+
+                    <h2>
+                        Lead Information
+                    </h2>
+                </div>
+
+                <div
+                    id="leadStatusBadge"
+                    class="lead-status"
+                >
+                    New Lead
+                </div>
+
+            </div>
+
+
+            <!-- Qualification -->
+            <div class="profile-section">
+
+                <div class="section-title">
+                    Qualification
+                </div>
+
+                <div class="info-grid">
+
+                    <div class="info-card">
+                        <div class="info-label">
+                            Configuration
+                        </div>
+
+                        <div
+                            id="configuration"
+                            class="info-value empty"
+                        >
+                            Not provided
+                        </div>
+                    </div>
+
+
+                    <div class="info-card">
+                        <div class="info-label">
+                            Budget
+                        </div>
+
+                        <div
+                            id="budget"
+                            class="info-value empty"
+                        >
+                            Not provided
+                        </div>
+                    </div>
+
+
+                    <div class="info-card">
+                        <div class="info-label">
+                            Purchase Timeline
+                        </div>
+
+                        <div
+                            id="purchaseTimeline"
+                            class="info-value empty"
+                        >
+                            Not provided
+                        </div>
+                    </div>
+
+
+                    <div class="info-card">
+                        <div class="info-label">
+                            Interest Level
+                        </div>
+
+                        <div
+                            id="interestLevel"
+                            class="info-value empty"
+                        >
+                            Not assessed
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Site Visit -->
+            <div class="profile-section">
+
+                <div class="section-title">
+                    Site Visit
+                </div>
+
+                <div
+                    id="siteVisitCard"
+                    class="site-visit-card"
+                >
+
+                    <div class="site-visit-icon">
+                        <svg
+                            width="21"
+                            height="21"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                        >
+                            <rect
+                                x="3"
+                                y="4"
+                                width="18"
+                                height="17"
+                                rx="2"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                            />
+
+                            <path
+                                d="M8 2V6"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                                stroke-linecap="round"
+                            />
+
+                            <path
+                                d="M16 2V6"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                                stroke-linecap="round"
+                            />
+
+                            <path
+                                d="M3 9H21"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                            />
+                        </svg>
+                    </div>
+
+                    <div>
+                        <div
+                            id="siteVisitStatus"
+                            class="site-visit-title"
+                        >
+                            No visit scheduled
+                        </div>
+
+                        <div
+                            id="siteVisitDetails"
+                            class="site-visit-details"
+                        >
+                            The assistant can schedule
+                            a visit for you.
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Lead Signals -->
+            <div class="profile-section">
+
+                <div class="section-title">
+                    Lead Signals
+                </div>
+
+                <div class="signal-list">
+
+                    <div class="signal-row">
+
+                        <span>
+                            Follow-up required
+                        </span>
+
+                        <span
+                            id="followUp"
+                            class="signal-value neutral"
+                        >
+                            No
+                        </span>
+
+                    </div>
+
+
+                    <div class="signal-row">
+
+                        <span>
+                            Escalation
+                        </span>
+
+                        <span
+                            id="escalation"
+                            class="signal-value neutral"
+                        >
+                            No
+                        </span>
+
+                    </div>
+
+
+                    <div class="signal-row">
+
+                        <span>
+                            Conversation status
+                        </span>
+
+                        <span
+                            id="conversationStatus"
+                            class="signal-value neutral"
+                        >
+                            Active
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Demo information -->
+            <div class="project-card">
+
+                <div class="project-card-label">
+                    NORTHSTAR ONE
+                </div>
+
+                <div class="project-card-title">
+                    Premium residences
+                    in Sector 79
+                </div>
+
+                <div class="project-card-footer">
+                    <span>2 BHK</span>
+                    <strong>₹1.35 Cr+</strong>
+                </div>
+
+                <div class="project-card-footer">
+                    <span>3 BHK</span>
+                    <strong>₹1.75 Cr+</strong>
+                </div>
+
+            </div>
+
+        </aside>
+
+    </main>
+
+</div>
+
+
+<!-- Error toast -->
+<div
+    id="errorToast"
+    class="error-toast hidden"
+>
+    <span>Something went wrong. Please try again.</span>
+</div>
+
+
+<script src="app.js"></script>
+
+</body>
+</html>

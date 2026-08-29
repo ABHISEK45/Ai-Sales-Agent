@@ -51,3 +51,46 @@ BOOK_SITE_VISIT_TOOL = {
         "required": ["date", "time"],
     },
 }
+UPDATE_LEAD_TOOL = {
+    "type": "function",
+    "name": "update_lead",
+    "description": (
+        "Update customer lead information when the customer provides "
+        "new information. Only include fields explicitly stated or "
+        "clearly implied by the customer's current message. "
+        "Do not invent information."
+    ),
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string",
+                "description": "Customer's name, if provided.",
+            },
+            "configuration": {
+                "type": "string",
+                "description": "Preferred property configuration, such as 2 BHK or 3 BHK.",
+            },
+            "budget": {
+                "type": "string",
+                "description": "Customer's stated budget.",
+            },
+            "purchase_timeline": {
+                "type": "string",
+                "description": "Customer's stated purchase timeline.",
+            },
+            "interest_level": {
+                "type": "string",
+                "description": "Customer's demonstrated level of purchase interest.",
+            },
+            "follow_up_required": {
+                "type": "boolean",
+                "description": "Whether the customer explicitly requests follow-up.",
+            },
+            "preferred_language": {
+                "type": "string",
+                "description": "Customer's preferred language if explicitly stated.",
+            },
+        },
+    },
+}

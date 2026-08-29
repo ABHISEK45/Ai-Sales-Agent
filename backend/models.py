@@ -37,6 +37,7 @@ class ChatResponse(BaseModel):
 
     response: str
     lead_state: LeadState
+    analytics: dict
 
 
 class Session(BaseModel):

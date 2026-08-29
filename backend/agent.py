@@ -6,7 +6,11 @@ from google import genai
 
 from backend.models import Session
 from backend.prompts import SYSTEM_PROMPT
-from backend.tools import BOOK_SITE_VISIT_TOOL, book_site_visit
+from backend.tools import (
+    BOOK_SITE_VISIT_TOOL,
+    UPDATE_LEAD_TOOL,
+    book_site_visit,
+)
 
 
 load_dotenv()
@@ -52,7 +56,10 @@ class NorthstarAgent:
             "model": self.model,
             "input": user_message,
             "system_instruction": SYSTEM_PROMPT,
-            "tools": [BOOK_SITE_VISIT_TOOL],
+            "tools": [
+                BOOK_SITE_VISIT_TOOL,
+                UPDATE_LEAD_TOOL,
+            ],
         }
 
         if session.gemini_interaction_id:
@@ -64,35 +71,50 @@ class NorthstarAgent:
 
         session.gemini_interaction_id = interaction.id
 
-        function_call = next(
-            (
-                step
-                for step in interaction.steps
-                if step.type == "function_call"
-            ),
-            None,
-        )
+        function_calls = [
+            step
+            for step in interaction.steps
+            if step.type == "function_call"
+        ]
 
-        if function_call is None:
+        if not function_calls:
             return interaction.output_text
 
-        if function_call.name != "book_site_visit":
-            return interaction.output_text
+        function_results = []
 
-        arguments = function_call.arguments
+        for function_call in function_calls:
+            arguments = function_call.arguments
 
-        if isinstance(arguments, str):
-            arguments = json.loads(arguments)
+            if isinstance(arguments, str):
+                arguments = json.loads(arguments)
 
-        result = book_site_visit(
-            date=arguments["date"],
-            time=arguments["time"],
-        )
+            if function_call.name == "update_lead":
+                for field, value in arguments.items():
+                    if value is not None:
+                        setattr(session.lead, field, value)
 
-        final_interaction = self.client.interactions.create(
-            model=self.model,
-            previous_interaction_id=interaction.id,
-            input=[
+                result = {
+                    "status": "success",
+                    "message": "Lead information updated.",
+                }
+
+            elif function_call.name == "book_site_visit":
+                result = book_site_visit(
+                    date=arguments["date"],
+                    time=arguments["time"],
+                )
+
+                if result["status"] == "success":
+                    session.lead.site_visit_status = "booked"
+                    session.lead.site_visit_date = arguments["date"]
+                    session.lead.site_visit_time = arguments["time"]
+                else:
+                    session.lead.site_visit_status = "unavailable"
+
+            else:
+                continue
+
+            function_results.append(
                 {
                     "type": "function_result",
                     "name": function_call.name,
@@ -104,7 +126,15 @@ class NorthstarAgent:
                         }
                     ],
                 }
-            ],
+            )
+
+        if not function_results:
+            return interaction.output_text
+
+        final_interaction = self.client.interactions.create(
+            model=self.model,
+            previous_interaction_id=interaction.id,
+            input=function_results,
         )
 
         session.gemini_interaction_id = final_interaction.id
