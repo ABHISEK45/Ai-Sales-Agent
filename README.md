@@ -6,7 +6,7 @@ The agent is designed to handle natural customer conversations, answer project-r
 
 ## Project Overview
 
-The Northstar AI Sales Agent acts as a conversational first point of contact for prospective customers.
+The AI Sales Agent acts as a conversational first point of contact for prospective customers.
 
 Instead of forcing customers through a fixed questionnaire, the agent follows the conversation naturally and collects useful information progressively.
 
