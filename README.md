@@ -1,4 +1,4 @@
-# Northstar AI Sales Agent
+# AI Sales Agent
 
 An AI-powered conversational sales agent for **Northstar One**, a residential real-estate project in Sector 79, Gurugram.
 
